@@ -85,10 +85,18 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "I am super awesome",
+    date: "June 3rd, 2020",
+    firstParagraph: "It is the total and absolute truth",
+    secondParagraph: "Just ask my brothers",
+    thirdParagraph: "They will tell you that it is true"
   }
 ];
 
-/* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
+/* Step 1: Write a component called 'articleMaker' to create an article. 
+You want your component to return markup like the template below: 
 
   <div class="article">
     <h2>{title of the article}</h2>
@@ -101,13 +109,61 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as its one argument, or 5 
+  separate arguments mapping to each piece of the data object above.
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
+  Step 2: Add an event listener to the expandButton span. 
+  This listener should toggle the class 'article-open' on the 'article' div.
 
   Step 3: Don't forget to return something from your function!
 
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
+  Step 4: Outside your function, loop over the data. At each iteration you'll use 
+  your component to create an article and append it to the DOM inside the 'articles' div.
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+  Step 5: Add a new article to the array. Make sure it is in the same 
+  format as the others. Refresh the page to see the new article.
 */
+
+function articleMaker(article) {
+  let divArticle = document.createElement("div");
+  divArticle.setAttribute("class", "article");
+
+  let hTwoOfArticle = document.createElement("h2");
+  hTwoOfArticle.textContent = article.title;
+  divArticle.appendChild(hTwoOfArticle);
+
+  let dateOfArticle = document.createElement("p");
+  dateOfArticle.textContent = article.date;
+  dateOfArticle.setAttribute("class", "date");
+  divArticle.appendChild(dateOfArticle);
+
+  let paraOfArticleOne = document.createElement("p");
+  paraOfArticleOne.textContent = article.firstParagraph;
+  divArticle.appendChild(paraOfArticleOne);
+
+  let paraOfArticleTwo = document.createElement("p");
+  paraOfArticleTwo.textContent = article.secondParagraph;
+  divArticle.appendChild(paraOfArticleTwo);
+
+  let paraOfArticleThree = document.createElement("p");
+  paraOfArticleThree.textContent = article.thirdParagraph;
+  divArticle.appendChild(paraOfArticleThree);
+
+  let spanButton = document.createElement("span");
+  spanButton.setAttribute("class", "expandButton");
+  divArticle.appendChild(spanButton);
+  spanButton.textContent = "expand";
+
+  spanButton.addEventListener("click", changeClassOfDiv);
+  function changeClassOfDiv() {
+    divArticle.classList.add("article-open");
+  }
+ 
+  return divArticle;
+}
+
+let parentDiv = document.querySelector(".articles");
+
+for(let i = 0; i < data.length; i++) {
+  parentDiv.appendChild(articleMaker(data[i]));
+}
